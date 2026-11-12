@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+asyncpg
+pydantic-settings
+email-validator
+argon2-cffi
+PyJWT>=2.10,<3
+aiosmtplib
+python-multipart
+httpx
+keyring
