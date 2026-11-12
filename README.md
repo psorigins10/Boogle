@@ -20,7 +20,7 @@ Boogle is an all-in-one desktop productivity application built with Python, PySi
 ![Create Account](desktop/qml/assets/images/Boogle_CA_Page.png)
 
 ### Login
-![Login](desktop/qml/assets/imagess/Boogle_LG_Page.png)
+![Login](desktop/qml/assets/images/Boogle_LG_Page.png)
 
 ### Forgot Password
 ![Forgot Password](desktop/qml/assets/images/Boogle_FYP_Page.png)
