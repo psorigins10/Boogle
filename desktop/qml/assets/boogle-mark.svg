@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="128"
+    height="128"
+    viewBox="0 0 128 128"
+>
+    <defs>
+        <!-- Boogle's signature blue-to-purple gradient -->
+        <linearGradient
+            id="boogleGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+        >
+            <stop offset="0%" stop-color="#38BDF8"/>
+            <stop offset="45%" stop-color="#4F8BFF"/>
+            <stop offset="100%" stop-color="#A855F7"/>
+        </linearGradient>
+
+        <!-- Soft glow around the logo -->
+        <filter id="logoGlow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Italic Boogle lettermark -->
+    <text
+        x="50%"
+        y="83%"
+        text-anchor="middle"
+        font-family="DejaVu Sans, sans-serif"
+        font-size="112"
+        font-weight="bold"
+        font-style="italic"
+        transform="skewX(-8)"
+        fill="url(#boogleGradient)"
+        filter="url(#logoGlow)"
+    >B</text>
+
+</svg>
