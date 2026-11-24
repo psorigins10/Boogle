@@ -14,8 +14,6 @@ Item {
     property string signupStage: "form"
     property string pendingEmail: ""
 
-    anchors.fill: parent
-
     // Backend signals drive the signup stages.
     Connections {
         target: authBackend
