@@ -298,8 +298,14 @@ ApplicationWindow {
                 userEmail: root.currentUserEmail
 
                 onLogoutRequested: {
+                    // Clear the Python authentication session.
+                    authBackend.logout()
+
+                    // Reset the desktop window.
                     root.currentUserEmail = ""
                     root.allowMaximize = false
+
+                    // Return to login.
                     pageStack.replace(loginPageComponent)
                 }
             }
