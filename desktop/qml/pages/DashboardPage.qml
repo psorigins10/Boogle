@@ -301,15 +301,19 @@ Item {
             color: "transparent"
 
             ScrollView {
+                id: contentScroll
+
                 anchors.fill: parent
                 clip: true
 
-                ScrollBar.vertical.policy: ScrollBar.AsNeeded
+                ScrollBar.vertical: ScrollBar {
+                    policy: ScrollBar.AsNeeded
+                }
 
                 Column {
-                    width: Math.max(implicitWidth, 0)
+                    x: 30
+                    width: Math.max(0, contentScroll.availableWidth - 60)
                     spacing: 22
-                    padding: 30
 
                     // TOP HEADER
 
