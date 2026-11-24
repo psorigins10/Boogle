@@ -25,6 +25,9 @@ Boogle is an all-in-one desktop productivity application built with Python, PySi
 ### Forgot Password
 ![Forgot Password](desktop/qml/assets/images/Boogle_FYP_Page.png)
 
+### DashBoard
+![DashBoard](desktop/qml/assets/images/Boogle_DSB_Page.png)
+
 ## Project Structure
 
 ```text
