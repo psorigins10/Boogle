@@ -1,4 +1,3 @@
-
 import httpx
 from typing import Any
 
@@ -14,6 +13,10 @@ class APIClient:
     def __init__(self, base_url: str = "http://127.0.0.1:8000"):
         self.base_url = base_url.rstrip("/")
         self.timeout = 15.0
+        self.access_token = None
+
+    def set_access_token(self, token : str | None) -> None:
+        self.access_token = token
 
     async def _request(
         self,
@@ -21,6 +24,11 @@ class APIClient:
         endpoint: str,
         data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        headers = {}
+
+        if self.access_token:
+            headers["Authorization"] = f"Bearer {self.access_token}"
+
         try:
             async with httpx.AsyncClient(
                 base_url=self.base_url,
@@ -30,6 +38,7 @@ class APIClient:
                     method,
                     endpoint,
                     json=data,
+                    headers=headers
                 )
 
             try:
