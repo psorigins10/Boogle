@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.dependencies import get_current_user
+from app.models import User
 
 from app.database.connection import get_db
 from app.schemas.auth import (
@@ -244,3 +246,13 @@ async def resend_login(
             status_code=status.HTTP_502_BAD_GATEWAY,
             detail="We couldn't send the login email. Please try again later.",
         )
+
+@router.get("/me")
+async def get_me(
+    current_user: User = Depends(get_current_user),
+):
+    return {
+        "id": str(current_user.id),
+        "full_name": current_user.full_name,
+        "email": current_user.email,
+    }
