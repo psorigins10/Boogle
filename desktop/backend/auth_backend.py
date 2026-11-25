@@ -205,6 +205,7 @@ class AuthBackend(QObject):
     @Slot()
     def logout(self):
         self._access_token = None
+        self.api.set_access_token(None)
 
         try:
             delete_token()
@@ -252,6 +253,7 @@ class AuthBackend(QObject):
                 return
 
             self._access_token = token
+            self.api.set_access_token(token)
 
             # Persist the token only when the user opted into Remember Me.
             # The flag is supplied separately by the request callback below.
