@@ -355,16 +355,17 @@ ApplicationWindow {
 
             clip: true
 
-        // Route according to the persisted authentication state.
-        // AuthBackend loads the Remember Me token before QML is loaded.
-        // Do not show Welcome/Login for a saved session.
-        Component.onCompleted: {
-            if (authBackend.state === "AUTHENTICATED") {
-                root.allowMaximize = true
-                pageStack.replace(dashboardPageComponent)
+            // Route according to the persisted authentication state.
+            // AuthBackend loads the Remember Me token before QML is loaded.
+            // Do not show Welcome/Login for a saved session.
+            Component.onCompleted: {
+                if (authBackend.state === "AUTHENTICATED") {
+                    root.allowMaximize = true
+                    pageStack.replace(dashboardPageComponent)
+                }
             }
-        }
 
+            // Sets the initial page displayed by the StackView
             initialItem: welcomePageComponent
 
             // ------------------------------------------------
