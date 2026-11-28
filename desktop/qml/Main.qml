@@ -242,7 +242,34 @@ ApplicationWindow {
             WelcomePage {
 
                 onGetStarted: {
-                    pageStack.push(signupPageComponent)
+                    pageStack.push(loginPageComponent)
+                }
+            }
+        }
+
+
+        // ====================================================
+        // SAVED ACCOUNTS PAGE COMPONENT
+        // ====================================================
+
+        Component {
+            id: savedAccountsPageComponent
+
+            SavedAccountsPage {
+                onBackRequested: {
+                    pageStack.pop()
+                }
+
+                // These backend methods/properties need to be
+                // implemented in AuthBackend first.
+                accounts: authBackend.savedAccounts
+
+                onRefreshRequested: {
+                    authBackend.loadSavedAccounts()
+                }
+
+                onRemoveAccountRequested: function(accountId) {
+                    authBackend.removeSavedAccount(accountId)
                 }
             }
         }
@@ -359,7 +386,25 @@ ApplicationWindow {
             // AuthBackend loads the Remember Me token before QML is loaded.
             // Do not show Welcome/Login for a saved session.
             Component.onCompleted: {
-                if (authBackend.state === "AUTHENTICATED") {
+                // Debug startup routes take priority over normal startup.
+                if (debugStartPage === "dashboard") {
+                    root.allowMaximize = true
+                    pageStack.replace(dashboardPageComponent)
+
+                } else if (debugStartPage === "login") {
+                    pageStack.replace(loginPageComponent)
+
+                } else if (debugStartPage === "welcome") {
+                    pageStack.replace(welcomePageComponent)
+
+                } else if (debugStartPage ==="savedAccounts") {
+                    pageStack.replace(savedAccountsPageComponent)
+                    
+                } else if (debugStartPage ==="signup") {
+                    pageStack.replace(signupPageComponent)
+                    
+                } else if (authBackend.state === "AUTHENTICATED") {
+                    // Normal startup: use the saved authentication state.
                     root.allowMaximize = true
                     pageStack.replace(dashboardPageComponent)
                 }
