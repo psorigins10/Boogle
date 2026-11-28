@@ -4,6 +4,7 @@
 # ============================================================
 
 import sys
+import argparse
 from pathlib import Path
 
 from PySide6.QtCore import QUrl
@@ -14,8 +15,51 @@ from desktop.backend.auth_backend import AuthBackend
 
 
 def main():
+    # Read Boogle's optional debug startup arguments.
+    parser = argparse.ArgumentParser(
+        description="Start Boogle"
+    )
+
+    # Debug pages supported by the application.
+    debug_pages = [
+        "dashboard",
+        "login",
+        "signup",
+        "welcome",
+        "savedAccounts"
+    ]
+
+    # Automatically create an argument for each debug page.
+    for page in debug_pages:
+        parser.add_argument(
+            f"--{page}",
+            action="store_true",
+            help=f"Open the {page} page directly for debugging",
+        )
+
+    # Only allow one debug page argument at a time.
+    args, unknown_args = parser.parse_known_args()
+
+    # Report unknown arguments and continue normally.
+    if unknown_args:
+        print(
+            f"Unknown argument(s): {' '.join(unknown_args)}"
+        )
+        print("Starting Boogle normally...")
+
+    # Determine which debug page should be opened.
+    debug_start_page = next(
+        (
+            page
+            for page in debug_pages
+            if getattr(args, page)
+        ),
+
+        "",
+    )
+
     # Create the Qt GUI application.
-    app = QGuiApplication(sys.argv)
+    app = QGuiApplication([sys.argv[0]])
     app.setApplicationName("Boogle")
     app.setOrganizationName("Boogle")
 
@@ -29,6 +73,12 @@ def main():
     engine.rootContext().setContextProperty(
         "authBackend",
         auth_backend,
+    )
+
+    # Tell QML which page to open in debug mode.
+    engine.rootContext().setContextProperty(
+        "debugStartPage",
+        debug_start_page,
     )
 
     # Locate the main QML file.
